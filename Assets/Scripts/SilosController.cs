@@ -7,7 +7,7 @@ public class SilosController : MonoBehaviour
     public GameObject particlePrefab;
     public int particleCount = 200;
     public float spawnRadius = 0.1f;
-    public float spawnRate = 0.02f;   
+    public float spawnRate = 0.001f;   
 
     [Header("Punkty")]
     public Transform spawnPoint;      
@@ -33,19 +33,23 @@ public class SilosController : MonoBehaviour
         if (silosBottom != null)
             silosBottom.SetActive(false);
 
+        int batchSize = 10; 
+        int batches = particleCount / batchSize;
 
-        for (int i = 0; i < particleCount; i++)
+        for (int i = 0; i < batches; i++)
         {
-            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPos = new Vector3(
-                spawnPoint.position.x + randomCircle.x,
-                spawnPoint.position.y,
-                spawnPoint.position.z + randomCircle.y
-            );
+            for (int j = 0; j < batchSize; j++)
+            {
+                Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
+                Vector3 spawnPos = new Vector3(
+                    spawnPoint.position.x + randomCircle.x,
+                    spawnPoint.position.y,
+                    spawnPoint.position.z + randomCircle.y
+                );
+                Instantiate(particlePrefab, spawnPos, Quaternion.identity);
+            }
 
-            Instantiate(particlePrefab, spawnPos, Quaternion.identity);
-
-            yield return new WaitForSeconds(spawnRate);
+            yield return new WaitForSeconds(0.05f);
         }
 
         isPouring = false;

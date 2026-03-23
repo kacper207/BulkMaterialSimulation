@@ -9,5 +9,9 @@ public class PhysicsSettings : MonoBehaviour
         Physics.defaultContactOffset = 0.0001f;
         Physics.defaultMaxDepenetrationVelocity = 20f;
         Time.fixedDeltaTime = 0.01f;
+
+
     }
+
+
 }

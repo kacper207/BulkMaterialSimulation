@@ -33,7 +33,7 @@ public class SilosController : MonoBehaviour
         if (silosBottom != null)
             silosBottom.SetActive(false);
 
-        int batchSize = 10; 
+        int batchSize = 30;        
         int batches = particleCount / batchSize;
 
         for (int i = 0; i < batches; i++)
@@ -48,8 +48,7 @@ public class SilosController : MonoBehaviour
                 );
                 Instantiate(particlePrefab, spawnPos, Quaternion.identity);
             }
-
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.02f);
         }
 
         isPouring = false;

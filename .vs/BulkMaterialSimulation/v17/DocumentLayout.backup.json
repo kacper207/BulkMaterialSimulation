@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\HARDPC\\BulkMaterialSimulation\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HARDPC\\BulkMaterialSimulation\\Library\\PackageCache\\com.unity.render-pipelines.universal@37e0d4fc2503\\Shaders\\Lit.shader||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Library\\PackageCache\\com.unity.render-pipelines.universal@37e0d4fc2503\\Shaders\\Lit.shader||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E9BE3DC4-F8C3-FDBF-22C8-365EB63324E7}|Assembly-CSharp.csproj|c:\\users\\hardpc\\bulkmaterialsimulation\\assets\\scripts\\siloscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9BE3DC4-F8C3-FDBF-22C8-365EB63324E7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\siloscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,6 +31,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Lit.shader",
+              "DocumentMoniker": "C:\\Users\\HARDPC\\BulkMaterialSimulation\\Library\\PackageCache\\com.unity.render-pipelines.universal@37e0d4fc2503\\Shaders\\Lit.shader",
+              "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.render-pipelines.universal@37e0d4fc2503\\Shaders\\Lit.shader",
+              "ToolTip": "C:\\Users\\HARDPC\\BulkMaterialSimulation\\Library\\PackageCache\\com.unity.render-pipelines.universal@37e0d4fc2503\\Shaders\\Lit.shader",
+              "RelativeToolTip": "Library\\PackageCache\\com.unity.render-pipelines.universal@37e0d4fc2503\\Shaders\\Lit.shader",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
+              "WhenOpened": "2026-03-16T10:57:56.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "SilosController.cs",
               "DocumentMoniker": "C:\\Users\\HARDPC\\BulkMaterialSimulation\\Assets\\Scripts\\SilosController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\SilosController.cs",
@@ -39,7 +56,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ParticleSpawner.cs",
               "DocumentMoniker": "C:\\Users\\HARDPC\\BulkMaterialSimulation\\Assets\\Scripts\\ParticleSpawner.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ParticleSpawner.cs",
@@ -51,7 +68,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Particle.cs",
               "DocumentMoniker": "C:\\Users\\HARDPC\\BulkMaterialSimulation\\Assets\\Scripts\\Particle.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Particle.cs",

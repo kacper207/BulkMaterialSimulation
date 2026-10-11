@@ -1,37 +1,45 @@
 using UnityEngine;
-using System.Collections;
+using UnityEngine.InputSystem;
 
 public class ParticleSpawner : MonoBehaviour
 {
-    [Header("Ustawienia spawnu")]
-    public GameObject particlePrefab;
-    public Transform spawnPoint;
-    public int particleCount = 50;
-    public float spawnRadius = 0.1f;   
-    public float spawnDelay = 0.05f;  
+    [SerializeField] GameObject particlePrefab;
+    [SerializeField] Transform spawnPoint;
+    [SerializeField] GameObject silosBottom;
+    [SerializeField] int particleCount = 1000;
+    [SerializeField] float spawnRadius = 0.1f;
+    [SerializeField] float particlesPerSecond = 200f;
+    [SerializeField] int seed = 12345;
+
+    int spawned;
+    float accumulator;
+    bool spawning;
 
     void Update()
     {
-        if (UnityEngine.InputSystem.Keyboard.current.eKey.wasPressedThisFrame)
+        if (!spawning && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            StartCoroutine(SpawnParticles());
+            Random.InitState(seed);
+            spawned = 0;
+            accumulator = 0f;
+            spawning = true;
+            if (silosBottom != null) silosBottom.SetActive(false);
         }
     }
 
-    IEnumerator SpawnParticles()
+    void FixedUpdate()
     {
-        for (int i = 0; i < particleCount; i++)
+        if (!spawning) return;
+
+        accumulator += particlesPerSecond * Time.fixedDeltaTime;
+        while (accumulator >= 1f && spawned < particleCount)
         {
-            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPos = new Vector3(
-                spawnPoint.position.x + randomCircle.x,
-                spawnPoint.position.y,
-                spawnPoint.position.z + randomCircle.y
-            );
-
-            Instantiate(particlePrefab, spawnPos, Quaternion.identity);
-
-            yield return new WaitForSeconds(spawnDelay);
+            Vector2 c = Random.insideUnitCircle * spawnRadius;
+            Instantiate(particlePrefab, spawnPoint.position + new Vector3(c.x, 0f, c.y), Quaternion.identity);
+            spawned++;
+            accumulator -= 1f;
         }
+
+        if (spawned >= particleCount) spawning = false;
     }
 }

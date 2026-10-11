@@ -931,63 +931,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2212009239438826721, guid: 47555706cbf1bd240874a96a619c0b80, type: 3}
---- !u!1001 &511479137
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 532297662470651266, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_Name
-      value: SandParticle
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325340743117837184, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1257.2909
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325340743117837184, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.15000013
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325340743117837184, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2008.2566
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325340743117837184, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325340743117837184, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325340743117837184, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325340743117837184, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325340743117837184, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325340743117837184, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325340743117837184, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
 --- !u!1 &559083824
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +940,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 559083825}
-  - component: {fileID: 559083826}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -1020,23 +962,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &559083826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 559083824}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12d8fd3f2f653b54d8d50eabdc23e8d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ParticleSpawner
-  particlePrefab: {fileID: 7377952588645657019, guid: 6ea1c95c3698677419808bde62a074e6, type: 3}
-  spawnPoint: {fileID: 559083825}
-  particleCount: 5000
-  spawnRadius: 0.3
-  spawnDelay: 0.01
 --- !u!1 &566260238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,9 +1888,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ParticleSpawner
   particlePrefab: {fileID: 532297662470651266, guid: d15f111db213d014a9e04bbe3710151c, type: 3}
   spawnPoint: {fileID: 559083825}
+  silosBottom: {fileID: 0}
   particleCount: 2000
   spawnRadius: 0.1
-  spawnDelay: 0.0001
+  particlesPerSecond: 200
+  seed: 12345
 --- !u!1 &1292265338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2981,6 +2908,7 @@ GameObject:
   - component: {fileID: 1710416751}
   - component: {fileID: 1710416750}
   - component: {fileID: 1710416752}
+  - component: {fileID: 1710416753}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3028,7 +2956,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FrameRateLimiter
   targetFps: 165
-  benchmarkMode: 0
+  benchmarkMode: 1
+--- !u!114 &1710416753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710416749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cccc2fb3a635d94aa9e82e86e3311c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BenchmarkLogger
+  runName: n1000_dt001
+  duration: 30
 --- !u!1 &1796934285 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9013638940889411661, guid: 47555706cbf1bd240874a96a619c0b80, type: 3}
@@ -3545,7 +3487,6 @@ SceneRoots:
   - {fileID: 342437325}
   - {fileID: 566260239}
   - {fileID: 1292265341}
-  - {fileID: 511479137}
   - {fileID: 1675911717}
   - {fileID: 203046906}
   - {fileID: 1389888228}

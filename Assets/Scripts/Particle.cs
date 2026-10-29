@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Particle : MonoBehaviour
 {
-    public static int Count;
+    public static readonly List<Particle> All = new List<Particle>();
+    public static int Count => All.Count;
 
     [SerializeField] Material[] materials;
     [SerializeField] float minDiameter = 0.05f;
@@ -11,17 +13,22 @@ public class Particle : MonoBehaviour
     [SerializeField] float density = 2650f;
     [SerializeField] float rollingResistance = 0.5f;
 
-    void OnEnable() => Count++;
-    void OnDisable() => Count--;
+    public Rigidbody Body { get; private set; }
+    public float Diameter { get; private set; }
+    public float Density => density;
+
+    void Awake() => Body = GetComponent<Rigidbody>();
+
+    void OnEnable() => All.Add(this);
+    void OnDisable() => All.Remove(this);
 
     void Start()
     {
-        float d = Random.Range(minDiameter, maxDiameter);
-        transform.localScale = Vector3.one * d;
+        Diameter = Random.Range(minDiameter, maxDiameter);
+        transform.localScale = Vector3.one * Diameter;
 
-        var rb = GetComponent<Rigidbody>();
-        rb.mass = density * Mathf.PI / 6f * d * d * d;
-        rb.angularDamping = rollingResistance;
+        Body.mass = density * Mathf.PI / 6f * Diameter * Diameter * Diameter;
+        Body.angularDamping = rollingResistance;
 
         if (materials != null && materials.Length > 0)
             GetComponent<Renderer>().sharedMaterial = materials[Random.Range(0, materials.Length)];

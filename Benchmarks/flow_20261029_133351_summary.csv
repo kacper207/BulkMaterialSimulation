@@ -1,0 +1,2 @@
+particles,total_mass_kg,duration_s,mean_diameter_m,orifice_D_m,D_over_d,particle_density,bulk_density,steady_from_s,steady_to_s,measured_kg_s,beverloo_kg_s,error_pct
+10000,4021.8710,2.420,0.0650,1.0000,15.37,2650.0,1590.0,0.500,1.700,1920.5490,2234.5410,-14.05

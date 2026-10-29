@@ -10,6 +10,7 @@ public class ParticleSpawner : MonoBehaviour
     [SerializeField] float spawnRadius = 0.1f;
     [SerializeField] float particlesPerSecond = 200f;
     [SerializeField] int seed = 12345;
+    [SerializeField] bool openBottomOnSpawn = true;
 
     int spawned;
     float accumulator;
@@ -23,8 +24,15 @@ public class ParticleSpawner : MonoBehaviour
             spawned = 0;
             accumulator = 0f;
             spawning = true;
-            if (silosBottom != null) silosBottom.SetActive(false);
+            if (openBottomOnSpawn) OpenBottom();
         }
+
+        if (Keyboard.current.oKey.wasPressedThisFrame) OpenBottom();
+    }
+
+    void OpenBottom()
+    {
+        if (silosBottom != null) silosBottom.SetActive(false);
     }
 
     void FixedUpdate()

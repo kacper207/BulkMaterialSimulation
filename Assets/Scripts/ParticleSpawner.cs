@@ -31,6 +31,7 @@ public class ParticleSpawner : MonoBehaviour
     }
 
     public bool IsSpawning => spawning;
+    public GameObject ParticlePrefab { get => particlePrefab; set => particlePrefab = value; }
 
     public void StartSpawning()
     {
@@ -38,7 +39,7 @@ public class ParticleSpawner : MonoBehaviour
         spawned = 0;
         accumulator = 0f;
         blockedTime = 0f;
-        clearance = particlePrefab.GetComponent<Particle>().MaxDiameter / 2f;
+        clearance = particlePrefab.GetComponent<Particle>().MaxBoundingRadius;
         spawning = true;
         if (openBottomOnSpawn) OpenBottom();
     }
@@ -58,7 +59,8 @@ public class ParticleSpawner : MonoBehaviour
         {
             if (!TryFindFreeSpot(out Vector3 position)) { blocked = true; break; }
 
-            Instantiate(particlePrefab, position, Quaternion.identity);
+            // Losowa orientacja - istotna dla zlepków, dla kul bez znaczenia.
+            Instantiate(particlePrefab, position, Random.rotation);
             Physics.SyncTransforms();
             spawned++;
             accumulator -= 1f;

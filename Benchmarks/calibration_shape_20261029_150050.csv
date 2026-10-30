@@ -1,0 +1,3 @@
+shape,mu_r,friction,contact_offset,max_depenetration,particles,mean_diameter_m,pile_height_m,pile_radius_m,sectors_fitted,angle_mean_deg,angle_std_deg,angle_pooled_deg,angle_geometric_deg,settle_time_s,settled
+SandParticle,0.2,1,0.005,1,3000,0.0650,0.4065,1.2226,8,17.15,0.66,17.15,18.39,5.11,1
+SandTetrahedron,0.2,1,0.005,1,3000,0.0648,0.4452,1.1691,8,17.97,1.32,17.98,20.85,5.92,1

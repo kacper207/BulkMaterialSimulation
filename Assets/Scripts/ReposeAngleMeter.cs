@@ -38,7 +38,6 @@ public class ReposeAngleMeter : MonoBehaviour
     }
 
     readonly List<Particle> inside = new List<Particle>();
-    readonly List<Vector3> localPositions = new List<Vector3>();
     float settledFor;
     bool measured;
 
@@ -81,15 +80,11 @@ public class ReposeAngleMeter : MonoBehaviour
     void Collect()
     {
         inside.Clear();
-        localPositions.Clear();
         var bounds = new Bounds(Vector3.zero, regionSize);
         foreach (var p in Particle.All)
         {
             if (p.Diameter <= 0f) continue;
-            Vector3 local = transform.InverseTransformPoint(p.transform.position);
-            if (!bounds.Contains(local)) continue;
-            inside.Add(p);
-            localPositions.Add(local);
+            if (bounds.Contains(transform.InverseTransformPoint(p.transform.position))) inside.Add(p);
         }
     }
 
@@ -103,21 +98,32 @@ public class ReposeAngleMeter : MonoBehaviour
             return new Result { Particles = inside.Count, AngleMean = float.NaN, AngleStd = float.NaN, AnglePooled = float.NaN, AngleGeometric = float.NaN };
         }
 
-        // Oś pryzmy = środek obiektu (lokalne XZ = 0), podstawa = najniższy punkt.
-        float baseY = float.MaxValue, meanD = 0f;
-        for (int i = 0; i < inside.Count; i++)
+        // Powierzchnię wyznaczają kule składowe (dla zlepków środek cząstki + d/2 nie jest jej wierzchołkiem).
+        var centers = new List<Vector3>();
+        var radii = new List<float>();
+        float meanD = 0f;
+        foreach (var p in inside)
         {
-            baseY = Mathf.Min(baseY, localPositions[i].y - inside[i].Diameter / 2f);
-            meanD += inside[i].Diameter;
+            meanD += p.Diameter;
+            for (int k = 0; k < p.SphereCount; k++)
+            {
+                p.GetSphere(k, out Vector3 c, out float r);
+                centers.Add(transform.InverseTransformPoint(c));
+                radii.Add(r);
+            }
         }
         meanD /= inside.Count;
 
+        // Oś pryzmy = środek obiektu (lokalne XZ = 0), podstawa = najniższy punkt.
+        float baseY = float.MaxValue;
+        for (int i = 0; i < centers.Count; i++) baseY = Mathf.Min(baseY, centers[i].y - radii[i]);
+
         float maxR = 0f, maxH = 0f;
-        for (int i = 0; i < inside.Count; i++)
+        for (int i = 0; i < centers.Count; i++)
         {
-            Vector3 pos = localPositions[i];
+            Vector3 pos = centers[i];
             maxR = Mathf.Max(maxR, new Vector2(pos.x, pos.z).magnitude);
-            maxH = Mathf.Max(maxH, pos.y + inside[i].Diameter / 2f - baseY);
+            maxH = Mathf.Max(maxH, pos.y + radii[i] - baseY);
         }
 
         float binWidth = maxR / radialBins;
@@ -126,14 +132,14 @@ public class ReposeAngleMeter : MonoBehaviour
             for (int b = 0; b < radialBins; b++)
                 surface[s, b] = float.NaN;
 
-        for (int i = 0; i < inside.Count; i++)
+        for (int i = 0; i < centers.Count; i++)
         {
-            Vector3 pos = localPositions[i];
+            Vector3 pos = centers[i];
             Vector2 rel = new Vector2(pos.x, pos.z);
             int b = Mathf.Min((int)(rel.magnitude / binWidth), radialBins - 1);
             float angle = Mathf.Atan2(rel.y, rel.x) + Mathf.PI;
             int s = Mathf.Min((int)(angle / (2f * Mathf.PI) * sectors), sectors - 1);
-            float h = pos.y + inside[i].Diameter / 2f - baseY;
+            float h = pos.y + radii[i] - baseY;
             if (float.IsNaN(surface[s, b]) || h > surface[s, b]) surface[s, b] = h;
         }
 

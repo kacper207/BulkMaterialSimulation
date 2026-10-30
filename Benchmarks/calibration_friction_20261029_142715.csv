@@ -1,0 +1,5 @@
+mu_r,friction,particles,mean_diameter_m,pile_height_m,pile_radius_m,sectors_fitted,angle_mean_deg,angle_std_deg,angle_pooled_deg,angle_geometric_deg,settle_time_s,settled
+0.2,0.5,3000,0.0652,0.3412,1.3226,8,12.69,0.77,12.69,14.46,5.93,1
+0.2,0.8,3000,0.0651,0.3736,1.2683,8,15.31,1.24,15.32,16.41,5.58,1
+0.2,1,3000,0.0651,0.4085,1.2271,8,18.27,1.01,18.27,18.41,5.09,1
+0.2,1.5,3000,0.0653,0.4203,1.2476,8,17.81,0.83,17.81,18.62,7.23,1

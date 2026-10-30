@@ -1,0 +1,5 @@
+shape,mu_r,friction,particles,mean_diameter_m,pile_height_m,pile_radius_m,sectors_fitted,angle_mean_deg,angle_std_deg,angle_pooled_deg,angle_geometric_deg,settle_time_s,settled
+SandParticle,0.2,1,3000,0.0651,0.4060,1.2023,8,17.11,1.06,17.12,18.66,5.43,1
+SandDimer,0.2,1,3000,0.0650,0.4073,1.1648,8,17.50,1.27,17.51,19.27,43.08,1
+SandTrimer,0.2,1,3000,0.0651,0.4132,1.1806,8,17.22,1.05,17.23,19.29,17.56,1
+SandTetrahedron,0.2,1,3000,0.0647,0.4344,1.1649,8,17.01,1.51,17.02,20.45,7.16,1
